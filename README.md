@@ -173,21 +173,41 @@ Trademarks belong to their owners. Swap any logo for an on-brand asset if a publ
 
 ## Deploying
 
-`.nojekyll` is included so GitHub Pages serves `assets/` as-is instead of running it through
-Jekyll.
+The site is live on **Vercel**, which serves the repo root as-is: no build command, no output
+directory, no framework preset.
 
-**This clone's `origin` still points at the upstream template.** To publish it as your own:
+| Remote | Repository | Purpose |
+|---|---|---|
+| `origin` | [modest12345678/madeshchakma](https://github.com/modest12345678/madeshchakma) | This site — pushes here trigger a Vercel deploy |
+| `upstream` | [codewithsadee/vcard-personal-portfolio](https://github.com/codewithsadee/vcard-personal-portfolio) | Original template, kept for reference only |
+
+`vercel.json` adds the production headers: HSTS, `X-Content-Type-Options`, `X-Frame-Options`,
+`Referrer-Policy`, `Permissions-Policy`, plus long-lived caching for `assets/images/` and
+short-lived caching for `assets/css/` and `assets/js/`.
+
+To ship a change:
 
 ```bash
-git remote set-url origin https://github.com/<your-username>/<your-repo>.git
 git add -A
-git commit -m "Redesign personal site"
-git push -u origin main
+git commit -m "Describe the change"
+git push
 ```
 
-Then enable Pages in the repo settings (Settings → Pages → deploy from branch `main`, folder `/`).
-Vercel, Netlify and Cloudflare Pages all work too — point them at the repo root with no build
-command.
+Daily deploy previews come from any non-production branch; `master` is the production branch.
+
+`.nojekyll` is included so GitHub Pages also works if you ever switch — for Pages, set
+Settings → Pages → deploy from branch `master`, folder `/`. Netlify and Cloudflare Pages work too
+(root directory, no build command).
+
+### Updating the production URL
+
+`https://madeshchakma.vercel.app` appears as an absolute URL in three places. If you attach a
+custom domain, or Vercel assigns a different project name, replace it in:
+
+- `index.html` — `og:url`, `og:image`, `og:image:alt`, `twitter:image`, `<link rel="canonical">`,
+  and the JSON-LD `Person.url`
+- `robots.txt` — the `Sitemap:` line
+- `sitemap.xml` — `<loc>`
 
 ---
 
