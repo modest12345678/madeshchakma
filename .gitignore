@@ -1,0 +1,18 @@
+# ---- Personal / not part of the published site -------------------------
+# Unreferenced source files kept locally only.
+BMET.pdf
+my picture.png
+
+# ---- Local AI tooling (not site content) -------------------------------
+.agents/
+.claude/
+skills-lock.json
+
+# ---- Template leftovers (unused, superseded) ---------------------------
+index.txt
+website-demo-image/
+
+# ---- OS / editor cruft -------------------------------------------------
+Thumbs.db
+desktop.ini
+.DS_Store

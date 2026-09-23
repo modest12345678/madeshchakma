@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" width="800" height="440" role="img" aria-label="Featured in BVNews24">
+  <rect width="800" height="440" fill="hsl(240,2%,13%)"/>
+  <g opacity="0.12" fill="none" stroke="hsl(45,100%,72%)" stroke-width="2">
+    <rect x="250" y="90" width="300" height="260" rx="6"/>
+    <path d="M285 140 h230 M285 180 h230 M285 220 h150 M285 260 h230 M285 300 h180"/>
+  </g>
+  <text x="400" y="200" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="20" fill="hsl(0,0%,55%)" letter-spacing="5">FEATURED IN</text>
+  <text x="400" y="258" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="46" font-weight="600" fill="hsl(45,100%,72%)">BVNews24</text>
+  <text x="400" y="300" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="22" fill="hsl(0,0%,84%)">Online News &#183; July 2026</text>
+</svg>

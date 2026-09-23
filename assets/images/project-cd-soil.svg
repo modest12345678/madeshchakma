@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="CropsDoctor satellite soil fertility analysis">
+  <rect width="800" height="600" fill="hsl(240,2%,13%)"/>
+  <rect width="800" height="600" fill="none" stroke="hsl(0,0%,25%)" stroke-width="2"/>
+  <g opacity="0.15" fill="none" stroke="hsl(45,100%,72%)" stroke-width="3">
+    <circle cx="400" cy="300" r="150"/>
+    <ellipse cx="400" cy="300" rx="150" ry="58"/>
+    <ellipse cx="400" cy="300" rx="58" ry="150"/>
+    <path d="M180 190 L620 190 M180 410 L620 410" stroke-width="2" stroke-dasharray="10 12"/>
+  </g>
+  <text x="400" y="300" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="50" font-weight="600" fill="hsl(45,100%,72%)">Soil &amp; Satellite</text>
+  <text x="400" y="352" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="27" fill="hsl(0,0%,84%)">Fertility analysis via Earth Engine</text>
+  <text x="400" y="398" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="21" fill="hsl(0,0%,55%)" letter-spacing="3">CROPSDOCTOR.COM</text>
+</svg>

@@ -1,159 +1,157 @@
 'use strict';
 
+/*
+ * Progressive enhancement only. Everything on the page works with JavaScript
+ * switched off; this file adds the mobile menu, scroll state, section
+ * highlighting, the work filter and the reveal animation.
+ */
 
+/* ------------------------------------------------------- mobile menu --- */
 
-// element toggle function
-const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
+const header = document.querySelector('[data-header]');
+const navToggle = document.querySelector('[data-nav-toggle]');
+const nav = document.querySelector('[data-nav]');
 
-
-
-// sidebar variables
-const sidebar = document.querySelector("[data-sidebar]");
-const sidebarBtn = document.querySelector("[data-sidebar-btn]");
-
-// sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
-
-
-
-// testimonials variables
-const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
-const modalContainer = document.querySelector("[data-modal-container]");
-const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
-const overlay = document.querySelector("[data-overlay]");
-
-// modal variable
-const modalImg = document.querySelector("[data-modal-img]");
-const modalTitle = document.querySelector("[data-modal-title]");
-const modalText = document.querySelector("[data-modal-text]");
-
-// modal toggle function
-const testimonialsModalFunc = function () {
-  modalContainer.classList.toggle("active");
-  overlay.classList.toggle("active");
+function closeNav() {
+  if (!nav || !navToggle) return;
+  nav.classList.remove('is-open');
+  navToggle.setAttribute('aria-expanded', 'false');
 }
 
-// add click event to all modal items
-for (let i = 0; i < testimonialsItem.length; i++) {
-
-  testimonialsItem[i].addEventListener("click", function () {
-
-    modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
-    modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
-    modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
-    modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
-
-    testimonialsModalFunc();
-
+if (navToggle && nav) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+    navToggle.setAttribute('aria-expanded', String(!isOpen));
+    nav.classList.toggle('is-open', !isOpen);
   });
 
-}
+  nav.addEventListener('click', (event) => {
+    if (event.target.closest('a')) closeNav();
+  });
 
-// add click event to modal close button
-modalCloseBtn.addEventListener("click", testimonialsModalFunc);
-overlay.addEventListener("click", testimonialsModalFunc);
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeNav();
+  });
 
-
-
-// custom select variables
-const select = document.querySelector("[data-select]");
-const selectItems = document.querySelectorAll("[data-select-item]");
-const selectValue = document.querySelector("[data-selecct-value]");
-const filterBtn = document.querySelectorAll("[data-filter-btn]");
-
-select.addEventListener("click", function () { elementToggleFunc(this); });
-
-// add event in all select items
-for (let i = 0; i < selectItems.length; i++) {
-  selectItems[i].addEventListener("click", function () {
-
-    let selectedValue = this.innerText.toLowerCase();
-    selectValue.innerText = this.innerText;
-    elementToggleFunc(select);
-    filterFunc(selectedValue);
-
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1080) closeNav();
   });
 }
 
-// filter variables
-const filterItems = document.querySelectorAll("[data-filter-item]");
+/* ----------------------------------------------------- header shadow --- */
 
-const filterFunc = function (selectedValue) {
+if (header) {
+  const syncHeader = () => {
+    header.classList.toggle('is-scrolled', window.scrollY > 8);
+  };
 
-  for (let i = 0; i < filterItems.length; i++) {
-
-    if (selectedValue === "all") {
-      filterItems[i].classList.add("active");
-    } else if (selectedValue === filterItems[i].dataset.category) {
-      filterItems[i].classList.add("active");
-    } else {
-      filterItems[i].classList.remove("active");
-    }
-
-  }
-
+  syncHeader();
+  window.addEventListener('scroll', syncHeader, { passive: true });
 }
 
-// add event in all filter button items for large screen
-let lastClickedBtn = filterBtn[0];
+/* -------------------------------------------------- active nav link ---- */
 
-for (let i = 0; i < filterBtn.length; i++) {
+const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+const sections = Array.from(document.querySelectorAll('main section[id]'));
 
-  filterBtn[i].addEventListener("click", function () {
-
-    let selectedValue = this.innerText.toLowerCase();
-    selectValue.innerText = this.innerText;
-    filterFunc(selectedValue);
-
-    lastClickedBtn.classList.remove("active");
-    this.classList.add("active");
-    lastClickedBtn = this;
-
-  });
-
-}
-
-
-
-// contact form variables
-const form = document.querySelector("[data-form]");
-const formInputs = document.querySelectorAll("[data-form-input]");
-const formBtn = document.querySelector("[data-form-btn]");
-
-// add event to all form input field
-for (let i = 0; i < formInputs.length; i++) {
-  formInputs[i].addEventListener("input", function () {
-
-    // check form validation
-    if (form.checkValidity()) {
-      formBtn.removeAttribute("disabled");
-    } else {
-      formBtn.setAttribute("disabled", "");
-    }
-
-  });
-}
-
-
-
-// page navigation variables
-const navigationLinks = document.querySelectorAll("[data-nav-link]");
-const pages = document.querySelectorAll("[data-page]");
-
-// add event to all nav link
-for (let i = 0; i < navigationLinks.length; i++) {
-  navigationLinks[i].addEventListener("click", function () {
-
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
-        window.scrollTo(0, 0);
+if (navLinks.length && sections.length && 'IntersectionObserver' in window) {
+  const setActive = (id) => {
+    navLinks.forEach((link) => {
+      const isActive = link.getAttribute('href') === `#${id}`;
+      link.classList.toggle('is-active', isActive);
+      if (isActive) {
+        link.setAttribute('aria-current', 'true');
       } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
+        link.removeAttribute('aria-current');
       }
-    }
+    });
+  };
 
-  });
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach((section) => sectionObserver.observe(section));
 }
+
+/* ----------------------------------------------------- work filtering -- */
+
+const filterButtons = Array.from(document.querySelectorAll('[data-filter]'));
+const workCards = Array.from(document.querySelectorAll('.work-card'));
+
+filterButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const filter = button.dataset.filter;
+
+    filterButtons.forEach((item) => {
+      const isActive = item === button;
+      item.classList.toggle('is-active', isActive);
+      item.setAttribute('aria-pressed', String(isActive));
+    });
+
+    workCards.forEach((card) => {
+      const matches = filter === 'all' || card.dataset.category === filter;
+      card.hidden = !matches;
+    });
+  });
+});
+
+/* ------------------------------------------------------------ reveal --- */
+
+const revealTargets = Array.from(document.querySelectorAll(
+  '.section-head, .capability-card, .work-card, .timeline-item, .cert-item, .press-item'
+));
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!reduceMotion && 'IntersectionObserver' in window && revealTargets.length) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      const target = entry.target;
+      target.classList.add('is-visible');
+      observer.unobserve(target);
+
+      // Drop the animation classes again once the fade has finished, so the
+      // stagger delay never slows down later hover transitions.
+      window.setTimeout(() => {
+        target.classList.remove('reveal', 'is-visible');
+        target.style.transitionDelay = '';
+      }, 800);
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  revealTargets.forEach((target, index) => {
+    target.classList.add('reveal');
+    target.style.transitionDelay = `${(index % 4) * 70}ms`;
+    revealObserver.observe(target);
+  });
+
+  // Safety net: if the observer has not reported on something the visitor can
+  // actually see (some browsers defer the first callback), show it anyway.
+  window.setTimeout(() => {
+    revealTargets.forEach((target) => {
+      if (!target.classList.contains('reveal')) return;
+
+      const rect = target.getBoundingClientRect();
+      const onScreen = rect.top < window.innerHeight && rect.bottom > 0;
+
+      if (onScreen) {
+        target.classList.remove('reveal');
+        target.style.transitionDelay = '';
+      }
+    });
+  }, 3000);
+}
+
+/* -------------------------------------------------------- footer year -- */
+
+const yearSlots = document.querySelectorAll('[data-year]');
+const currentYear = String(new Date().getFullYear());
+
+yearSlots.forEach((slot) => {
+  slot.textContent = currentYear;
+});

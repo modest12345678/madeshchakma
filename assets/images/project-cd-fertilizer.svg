@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="CropsDoctor fertilizer and dosage calculator">
+  <rect width="800" height="600" fill="hsl(240,2%,13%)"/>
+  <rect width="800" height="600" fill="none" stroke="hsl(0,0%,25%)" stroke-width="2"/>
+  <g opacity="0.15" fill="none" stroke="hsl(45,100%,72%)" stroke-width="3">
+    <rect x="300" y="120" width="200" height="360" rx="16"/>
+    <rect x="330" y="150" width="140" height="60" rx="8"/>
+    <g stroke-width="2.5">
+      <rect x="330" y="240" width="52" height="44" rx="6"/>
+      <rect x="404" y="240" width="52" height="44" rx="6"/>
+      <rect x="330" y="304" width="52" height="44" rx="6"/>
+      <rect x="404" y="304" width="52" height="44" rx="6"/>
+      <rect x="330" y="368" width="126" height="44" rx="6"/>
+    </g>
+  </g>
+  <text x="400" y="300" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="52" font-weight="600" fill="hsl(45,100%,72%)">Dosage Calculator</text>
+  <text x="400" y="352" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="27" fill="hsl(0,0%,84%)">BARC-aligned fertilizer &amp; pesticide rates</text>
+  <text x="400" y="398" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="21" fill="hsl(0,0%,55%)" letter-spacing="3">CROPSDOCTOR.COM</text>
+</svg>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://madeshchakma.vercel.app/sitemap.xml
